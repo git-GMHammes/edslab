@@ -1,0 +1,72 @@
+services:
+  php82-apache:
+    build: ./src
+    image: php:8.2-apache
+    container_name: fiaptpa-php82-apache
+    restart: always
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "127.0.0.1:45000:80"
+    depends_on:
+      - mysql80
+
+  php81-websocket:
+    build: ./websocket_server
+    image: php:7.4-cli
+    container_name: fiaptpa-php81-websocket
+    restart: always
+    volumes:
+      - ./websocket_server:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "45001:5609"
+    depends_on:
+      - mysql80
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fiaptpa-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql80
+      PMA_USER: root
+      PMA_PASSWORD: pass123
+      PMA_DATABASE: fiaptpa
+    ports:
+      - "45002:80"
+    depends_on:
+      - mysql80
+
+  adminer:
+    image: adminer
+    container_name: fiaptpa-adminer
+    restart: always
+    environment:
+      PMA_HOST: mysql80
+      PMA_USER: root
+      PMA_PASSWORD: pass123
+      PMA_DATABASE: fiaptpa
+    ports:
+      - "45003:8080"
+    depends_on:
+      - mysql80
+
+  mysql80:
+    build: ./mysql
+    container_name: fiaptpa-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123
+      MYSQL_DATABASE: fiaptpa
+    ports:
+      - "33451:3306"
+    volumes:
+      - ./mysql/mysql-data:/var/lib/mysql
+      - ./mysql/mysql-init:/docker-entrypoint-initdb.d
+
+volumes:
+  src:
+  mysql-data:
+  mysql-init:
