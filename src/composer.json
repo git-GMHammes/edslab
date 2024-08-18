@@ -1,0 +1,46 @@
+{
+    "name": "fiaptpa/drupal-project",
+    "description": "Projeto Drupal usando PHP 8.2",
+    "type": "project",
+    "require": {
+        "php": "^8.2",
+        "drupal/core-recommended": "^10",
+        "drupal/core-composer-scaffold": "^10",
+        "drupal/core-project-message": "^10",
+        "drupal/core-dev": "^10",
+        "composer/installers": "^2",
+        "drush/drush": "^11"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+            "Drupal\\Core\\Composer\\Composer::ensureHtaccess"
+        ],
+        "post-update-cmd": [
+            "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+            "Drupal\\Core\\Composer\\Composer::ensureHtaccess"
+        ]
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "enable-patching": true,
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "patches": {}
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

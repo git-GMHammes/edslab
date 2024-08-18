@@ -1,0 +1,13 @@
+C:\laragon\www\edslab\
+│   docker-compose.yml
+├── Doc\
+│   ├── comandos.txt
+│   └── estrutura.txt
+├── mysql\
+│   │   Dockerfile
+│   ├── mysql-data\
+│   └── mysql-init\
+│       └── init.sql
+├── src\
+│   └── composer.json
+└── websocket_server\
