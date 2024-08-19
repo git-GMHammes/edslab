@@ -5,8 +5,10 @@ services:
     container_name: drupal10-php82-apache
     restart: always
     volumes:
+      - ./src/drupal:/var/www/html/drupal
+      - ./src/vendor:/var/www/html/vendor
       - ./src:/var/www/html
-    working_dir: /var/www/html
+    working_dir: /var/www/html/drupal
     ports:
       - "127.0.0.1:45400:80"
     depends_on:

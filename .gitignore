@@ -1,0 +1,4 @@
+
+mysql/mysql-data/*
+src/vendor/*
+Doc/*

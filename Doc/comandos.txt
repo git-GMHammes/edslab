@@ -7,3 +7,9 @@ docker volume prune -f
 docker volume rm devopsteste_db-data -f
 docker network prune -f
 docker system prune -a
+ 
+docker exec -it drupal10-php82-apache bash
+ 
+cd /var/www/html/drupal
+composer install
+ 
